@@ -6,17 +6,13 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git 'https://github.com/branavanDev/react-basic-website-.git'
+                 git branch: 'main',
+                        url: 'https://github.com/branavanDev/react-basic-website-.git'
             }
         }
         stage('Install Dependencies') {
             steps {
-                sh 'npm install'
-            }
-        }
-        stage('Run Tests') {
-            steps {
-                sh 'npm test' // This should run your tests using your configured test framework (e.g., Jest)
+                bat 'npm install'
             }
         }
         stage('Build') {
@@ -24,6 +20,13 @@ pipeline {
                 sh 'npm run build' // Adjust according to your build command
             }
         }
+
+        stage('Test') {
+            steps {
+                bat 'npm test' // This should run your tests using your configured test framework (e.g., Jest)
+            }
+        }
+        
     }
     post {
         always {
